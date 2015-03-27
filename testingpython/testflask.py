@@ -2,7 +2,7 @@
 
 from flask.ext.testing import TestCase
 
-def setup_db(db):
+def requires_db(db):
     """Decorator for setting up and tearing down the database"""
     def decorator(function_to_decorate):
         def wrapper(self):
@@ -11,6 +11,7 @@ def setup_db(db):
             db.session.remove()
             db.drop_all()
             return ret
+        return wrapper
     return decorator
 
 class TestFlask(TestCase):
