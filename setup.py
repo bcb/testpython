@@ -4,8 +4,8 @@
 from setuptools import setup
 
 setup(
-    name='pythontests',
-    packages=['pythontests'],
+    name='testingpython',
+    packages=['testingpython'],
     author='Beau Barker',
     author_email='beauinmelbourne@gmail.com',
     )
