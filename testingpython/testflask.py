@@ -4,8 +4,11 @@ from flask.ext.testing import TestCase
 
 class TestFlask(TestCase):
 
-    SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/test.db'
-    TESTING = True
+    @staticmethod
+    def create_app(app):
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+        app.config['TESTING'] = True
+        return app
 
     @staticmethod
     def setup_db(db):
