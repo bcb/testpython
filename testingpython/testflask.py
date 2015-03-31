@@ -17,7 +17,8 @@ def requires_db(db):
 
 class TestFlask(TestCase):
 
-    def create_app(self, app):
+    @staticmethod
+    def create_app(app):
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
         app.config['TESTING'] = True
         return app
