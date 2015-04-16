@@ -1,4 +1,4 @@
-"""flasktest.py"""
+"""testflask.py"""
 
 from flask.ext.testing import TestCase
 
@@ -16,7 +16,6 @@ def requires_db(db):
     return decorator
 
 class TestFlask(TestCase):
-
     @staticmethod
     def create_app(app):
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
