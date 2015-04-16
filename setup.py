@@ -1,11 +1,12 @@
 """setup.py"""
-#pylint:disable=line-too-long
 
 from setuptools import setup
 
 setup(
     name='testingpython',
-    packages=['testingpython'],
+    description='My own classes for testing python.',
     author='Beau Barker',
     author_email='beauinmelbourne@gmail.com',
+    py_modules=['testflask'],
+    tests_require=['tox'],
     )
