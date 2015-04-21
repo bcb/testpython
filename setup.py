@@ -7,6 +7,6 @@ setup(
     description='My own classes for testing python.',
     author='Beau Barker',
     author_email='beauinmelbourne@gmail.com',
-    py_modules=['testflask', 'testsqlalchemy'],
+    py_modules=['testflask', 'testsqlalchemy', 'testselenium'],
     tests_require=['tox'],
     )
