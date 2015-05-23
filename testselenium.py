@@ -1,4 +1,4 @@
-"""common.py"""
+"""testselenium.py"""
 #pylint:disable=unused-wildcard-import
 
 import re
@@ -9,7 +9,8 @@ from behave import * #pylint:disable=wildcard-import
 
 def assert_uri(context, string):
     """Ensure the uri is correct"""
-    sleep(0.5)
+    sleep(0.25)
+    #print(string, context.browser.current_url)
     assert re.search(string, context.browser.current_url)
 
 
@@ -26,37 +27,31 @@ def assert_title(context, string):
     assert re.search(string, context.browser.title)
 
 
-# Given
-@given('I\'ve not logged in')
-def step_impl(context):
-    context.browser.get('http://localhost/logout')
-
-
-@given('I\'ve logged in')
-def step_impl(context):
-    context.browser.get('http://localhost/login')
-    context.execute_steps('''
-        When I login
-    ''')
-
-
 # When
-@when('I visit the login page')
+@when('I visit "{uri}"')
+def step_impl(context, uri):
+    context.browser.get('http://localhost'+uri)
+
+
+@then('I should see "{text}"')
+def step_impl(context, text):
+    """Checks a flash message or other text in the page"""
+    sleep(0.5)
+    assert text in context.browser.page_source
+
+
+@when('I refresh the page')
 def step_impl(context):
-    context.browser.get('http://localhost/login')
+    context.browser.refresh()
 
 
-@when('I visit the logout page')
-def step_impl(context):
-    context.browser.get('http://localhost/logout')
-
-
+# Logging in and out
 @when('I login')
 def step_impl(context):
     context.browser.find_element_by_xpath('//input[@name="username"]') \
         .send_keys('admin')
     context.browser.find_element_by_xpath('//input[@name="password"]') \
-        .send_keys('pass')
+        .send_keys('admin')
     context.browser.find_element_by_xpath('//input[@name="submit"]').click()
 
 
@@ -69,16 +64,6 @@ def step_impl(context):
     context.browser.find_element_by_xpath('//input[@name="submit"]').click()
 
 
-# Then
-@then('I should see the login page')
+@when('I click to logout')
 def step_impl(context):
-    assert_uri(context, '/login')
-    assert_heading(context, 'Login')
-
-
-@then('I should see the message "{text}"')
-@then('I should see "{text}"')
-def step_impl(context, text):
-    """Checks a flash message or other text in the page"""
-    sleep(0.5)
-    assert text in context.browser.page_source
+    context.browser.find_element_by_css_selector('a[href$="/logout"]').click()
