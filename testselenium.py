@@ -17,7 +17,7 @@ def assert_uri(context, string):
 def assert_heading(context, string):
     """Ensure the heading is correct"""
     assert context.browser.find_elements_by_xpath(
-        '//h1[@id="page_heading" and contains(., "'+string+'")]')[0] \
+        '//h1[contains(., "'+string+'")]')[0] \
         .is_displayed()
 
 
@@ -62,8 +62,3 @@ def step_impl(context):
     context.browser.find_element_by_xpath('//input[@name="password"]') \
         .send_keys('nopass')
     context.browser.find_element_by_xpath('//input[@name="submit"]').click()
-
-
-@when('I click to logout')
-def step_impl(context):
-    context.browser.find_element_by_css_selector('a[href$="/logout"]').click()
