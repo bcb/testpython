@@ -33,19 +33,11 @@ def step_impl(context, uri):
     context.browser.get('http://localhost'+uri)
 
 
-@then('I should see "{text}"')
-def step_impl(context, text):
-    """Checks a flash message or other text in the page"""
-    sleep(0.5)
-    assert text in context.browser.page_source
-
-
 @when('I refresh the page')
 def step_impl(context):
     context.browser.refresh()
 
 
-# Logging in and out
 @when('I login')
 def step_impl(context):
     context.browser.find_element_by_xpath('//input[@name="username"]') \
@@ -62,3 +54,20 @@ def step_impl(context):
     context.browser.find_element_by_xpath('//input[@name="password"]') \
         .send_keys('nopass')
     context.browser.find_element_by_xpath('//input[@name="submit"]').click()
+
+
+@then('I should see "{text}"')
+def step_impl(context, text):
+    """Checks a flash message or other text in the page"""
+    sleep(0.5)
+    assert text in context.browser.page_source
+
+
+@then('I should see the alert "{text}"')
+def step_impl(context, text):
+    """Checks an alert was raised and contains {text}. Also closes it"""
+    sleep(0.5)
+    alert = context.browser.switch_to_alert()
+    alert_text = alert.text
+    alert.dismiss()
+    assert text in alert_text
