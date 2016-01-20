@@ -56,6 +56,12 @@ def step_impl(context):
     context.browser.find_element_by_xpath('//input[@name="submit"]').click()
 
 
+@when('i click to confirm')
+def step_impl(context):
+    sleep(0.2)
+    context.browser.switch_to_alert().accept()
+
+
 @then('I should see "{text}"')
 def step_impl(context, text):
     """Checks a flash message or other text in the page"""
