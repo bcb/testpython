@@ -12,7 +12,7 @@ class TestFlask(TestCase):
     def configure_app(app):
 #        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
         app.config['SQLALCHEMY_DATABASE_URI'] = \
-            'postgresql://apps@localhost/testing'
+            'postgresql://postgres@postgres/postgres'
         app.config['TESTING'] = True
         app.config['LOGIN_DISABLED'] = False
         app.config['WTF_CSRF_ENABLED'] = False
